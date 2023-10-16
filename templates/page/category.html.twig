@@ -1,0 +1,200 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ subcategory|capitalize }}{% endblock %}
+
+{% block content %}
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9" data-aos="fade-up">
+					{% if data|length > 0 %}
+						<h3 class="category-title">Category:
+							{{ data|first.subcategory }}</h3>
+					{% endif %}
+					<div class="d-flex justify-content-between align-items-center mb-4">
+						<!-- Show Entries -->
+						<div class="d-flex align-items-center" id="customShowEntries_wrapper">
+							<label class="me-2 mb-0" for="customShowEntries">Show</label>
+							<select id="customShowEntries" class="form-select form-select-sm" aria-controls="hiddenTable" style="width: auto;">
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="25">25</option>
+								<option value="50">50</option>
+								<option value="100">100</option>
+							</select>
+							<span class="ms-2">entries</span>
+						</div>
+
+						<!-- Search Box -->
+						<div class="custom-search-box d-flex align-items-center">
+							<label for="customSearch" class="me-2 mb-0">Search:</label>
+							<input type="text" id="customSearch" class="form-control form-control-sm" placeholder="Type to search...">
+						</div>
+					</div>
+
+					<!-- Custom HTML for display -->
+					<div id="customContent"><!-- Populated using server-side data -->
+					</div>
+
+					<!-- Hidden DataTable -->
+					<table id="hiddenTable" style="display:none;">
+						{# <table id="hiddenTable"> #}
+						<thead>
+							<tr>
+								<th>Title</th>
+								<th>Subcategory</th>
+								<th>Topic</th>
+								<th>Date</th>
+								<th>Description</th>
+								<th>Paths</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for entry in data %}
+								<tr>
+									<td>{{ entry.title }}</td>
+									<td>{{ entry.category }}</td>
+									<td>{{ entry.subcategory }}</td>
+									<td>{{ entry.date }}</td>
+									<td>{{ entry.description }}</td>
+									<td>{{ entry.path }}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+
+					<!-- Custom Info and Paging for display -->
+					<div
+						class="d-flex justify-content-between align-items-center py-4">
+						<!-- Custom Info -->
+						<div id="customInfo"></div>
+
+						<!-- Custom Paging -->
+						<div class="custom-pagination">
+							<a href="#" id="prev" class="prev">Previous</a>
+							<span id="pages"></span>
+							<a href="#" id="next" class="next">Next</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3">
+					<!-- ======= Sidebar ======= -->
+					<div class="aside-block">
+						<ul class="nav nav-pills custom-tab-nav mb-4" id="pills-tab" role="tablist">
+							<li class="nav-item" role="presentation">
+								<button class="nav-link active" id="pills-popular-tab" data-bs-toggle="pill" data-bs-target="#pills-popular" type="button" role="tab" aria-controls="pills-popular" aria-selected="true">Popular</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="pills-trending-tab" data-bs-toggle="pill" data-bs-target="#pills-trending" type="button" role="tab" aria-controls="pills-trending" aria-selected="false">Trending</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="pills-latest-tab" data-bs-toggle="pill" data-bs-target="#pills-latest" type="button" role="tab" aria-controls="pills-latest" aria-selected="false">Latest</button>
+							</li>
+						</ul>
+
+						<div class="tab-content" id="pills-tabContent">
+							<!-- Popular -->
+							<div class="tab-pane fade show active" id="pills-popular" role="tabpanel" aria-labelledby="pills-popular-tab">
+								{# {% for i in 0..(titles|length - 1) %}
+								<div class="post-entry-1 border-bottom">
+									<div class="post-meta">
+										<span class="date">{{ subCategory[i] }}</span>
+										<span class="mx-1">&bullet;</span>
+										<span>{{ dates[i] }}</span>
+									</div>
+									<h2 class="mb-2">
+										<a href="#">{{ titles[i] }}</a>
+									</h2>
+									<span class="author mb-3 d-block">Jenny Wilson</span>
+								</div>
+								{% endfor %} #}
+							</div>
+							<!-- End Popular -->
+
+							<!-- Trending -->
+							<div class="tab-pane fade" id="pills-trending" role="tabpanel" aria-labelledby="pills-trending-tab">
+								{# {% for i in 0..(titles|length - 1) %}
+								<div class="post-entry-1 border-bottom">
+									<div class="post-meta">
+										<span class="date">{{ subCategory[i] }}</span>
+										<span class="mx-1">&bullet;</span>
+										<span>{{ dates[i] }}</span>
+									</div>
+									<h2 class="mb-2">
+										<a href="#">{{ titles[i] }}</a>
+									</h2>
+									<span class="author mb-3 d-block">Jenny Wilson</span>
+								</div>
+								{% endfor %} #}
+							</div>
+							<!-- End Trending -->
+
+							<!-- Latest -->
+							<div class="tab-pane fade" id="pills-latest" role="tabpanel" aria-labelledby="pills-latest-tab">
+								{# {% for i in 0..(titles|length - 1) %}
+								<div class="post-entry-1 border-bottom">
+									<div class="post-meta">
+										<span class="date">{{ subCategory[i] }}</span>
+										<span class="mx-1">&bullet;</span>
+										<span>{{ dates[i] }}</span>
+									</div>
+									<h2 class="mb-2">
+										<a href="#">{{ titles[i] }}</a>
+									</h2>
+									<span class="author mb-3 d-block">Jenny Wilson</span>
+								</div>
+								{% endfor %} #}
+							</div>
+							<!-- End Latest -->
+						</div>
+					</div>
+
+					{# <div class="aside-block">
+						<h3 class="aside-title">Video</h3>
+						<div class="video-post">
+							<a href="https://www.youtube.com/watch?v=AiFfDjmd0jU" class="glightbox link-video">
+								<span class="bi-play-fill"></span>
+								<img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid">
+							</a>
+						</div>
+					</div> #}
+					<!-- End Video -->
+
+					{# <div class="aside-block">
+						<h3 class="aside-title">Categories</h3>
+						<ul class="aside-links list-unstyled">
+							{% for i in 0..(titles|length - 1) %}
+							<li>
+								<a href="category.html">
+									<i class="bi bi-chevron-right"></i>{{ topic[i] }}</a>
+							</li>
+							{% endfor %}
+						</ul>
+					</div> #}
+					<!-- End category -->
+
+					<div class="aside-block"> 
+						<h3 class="aside-title">Tags</h3>
+						<ul class="aside-tags list-unstyled">
+							{% for subcategory in global_subcategories %}
+							<li>
+								<a href="{{ path('app_subcategory', {'subcategory': subcategory}) }}">{{ subcategory|capitalize }}</a>
+							</li>
+							{% endfor %}
+						</ul>
+					</div>
+					<!-- End Tags -->
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }} 
+    <script>
+        var imgUrl = '{{ asset("img/placeholder/576x486.png") }}';
+    </script>
+    {{ encore_entry_script_tags('pagination') }}
+{% endblock %}

@@ -1,0 +1,256 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+	<section class="single-post-content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9 post-content" data-aos="fade-up">
+					<!-- ======= Single Post Content ======= -->
+					<div class="single-post">
+
+						<!-- ======= Breadcrumb ======= -->
+						<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ path('app_main') }}">
+										<b>KnowledgeCompass</b>
+									</a>
+								</li>
+								{% if h5[1] is defined %}
+									<li class="breadcrumb-item active" aria-current="page">
+										<a href='/blockchain/{{ h5[1] }}'>{{ h5[1]|capitalize }}</a>
+									</li>
+								{% endif %}
+
+								<li class="breadcrumb-item active" aria-current="page">
+									<a href="#">{{ title }}</a>
+								</li>
+							</ol>
+						</nav>
+
+						<!-- ======= Title & Description ======= -->
+						<div class="post-meta">
+							{% if h5[0] is defined %}
+								<span class="date">
+									<b style="color:red;">
+										[ DRAFT ]
+									</b>
+									{{ h5[0] }}</span>
+							{% endif %}
+							<span class="mx-1">&bullet;</span>
+							{% if h5[1] is defined %}
+								<span>{{ h5[1] }}</span>
+							{% endif %}
+						</div>
+						<h1 class="mb-5">{{ title }}</h1>
+						{% if paragraphs[0] is defined %}
+							{% set firstDesc = paragraphs[0]|raw %}
+							{% set firstLetter = firstDesc|slice(0, 1)|upper %}
+							{% set restOfTitle = firstDesc|slice(1)|raw %}
+							<span class="text-wrapper" style="display: inline-block;">
+								<span class="firstcharacter">{{ firstLetter }}</span>
+								{{ restOfTitle|raw }}
+							</span>
+						{% endif %}
+
+						<!-- ======= Image & Caption ======= -->
+						{% if imageFigures[0] is defined %}
+							<figure class="my-4">
+								<img src="{{ asset(imageFigures[0].src) }}" alt="" class="img-fluid">
+								{% if paragraphs[1] is defined %}
+									<figcaption>{{ paragraphs[1]|raw }}</figcaption>
+								{% endif %}
+							</figure>
+						{% endif %}
+
+
+						<!-- ======= 1st Subtitle & Description ======= -->
+						{% if h2[0] is defined %}
+							<h2 class="mb-4">{{ h2[0] }}</h2>
+						{% endif %}
+						{% if paragraphs[2] is defined %}
+							<p>{{ paragraphs[2]|raw }}</p>
+						{% endif %}
+						{% if ulLists[0] is defined %}
+							<ul>
+								{% for li in ulLists[0] %}
+									<li>{{ li|raw }}</li>
+								{% endfor %}
+							</ul>
+						{% endif %}
+						<div class="alert alert-danger" role="alert">
+							<h4 class="alert-heading">
+								<img src="{{ asset('img/base/warning.png') }}" style="width:16px; height:16px; vertical-align: middle;">
+								<span style="vertical-align: middle;">Important !</span>
+							</h4>
+							{% if importantNotes[0] is defined %}
+								<p>{{ importantNotes[0]|raw }}</p>
+							{% endif %}
+						</div>
+
+						{% set steps = [
+								{'titleIndex': 0, 'paragraphIndex': 3, 'ulIndex': 1, 'codeIndex': 0, 'noteIndex': 0, 'noteType': 'info', 'noteImage': 'success.png', 'noteColor': 'alert-success'},
+								{'titleIndex': 1, 'paragraphIndex': 4, 'ulIndex': null, 'codeIndex': 1, 'noteIndex': 0, 'noteType': 'remind', 'noteImage': 'reminder.png', 'noteColor': 'alert-warning'},
+								{'titleIndex': 2, 'paragraphIndex': 5, 'ulIndex': null, 'codeIndex': 2, 'noteIndex': 0, 'noteType': 'remind', 'noteImage': 'reminder.png', 'noteColor': 'alert-warning'},
+								{'titleIndex': 3, 'paragraphIndex': 6, 'ulIndex': null, 'codeIndex': 3, 'noteIndex': 0, 'noteType': 'info', 'noteImage': 'success.png', 'noteColor': 'alert-success'},
+								{'titleIndex': 4, 'paragraphIndex': 7, 'ulIndex': null, 'codeIndex': 4, 'noteIndex': 0, 'noteType': 'warning', 'noteImage': 'warning.png', 'noteColor': 'alert-danger'}
+							] %}
+
+						{% for step in steps %}
+							{# Title #}
+							{% if h3[step.titleIndex] is defined %}
+								<h3 class="mb-3">{{ h3[step.titleIndex] }}</h3>
+							{% endif %}
+
+							{# Paragraph #}
+							{% if paragraphs[step.paragraphIndex] is defined %}
+								<p>{{ paragraphs[step.paragraphIndex]|raw }}</p>
+							{% endif %}
+
+							{# Unordered List #}
+							{% if step.ulIndex is not null and ulLists[step.ulIndex] is defined %}
+								<ul>
+									{% for li in ulLists[step.ulIndex] %}
+										<li>{{ li|raw }}</li>
+									{% endfor %}
+								</ul>
+							{% endif %}
+
+							{# Code Block #}
+							{% if codeBlocks[step.codeIndex] is defined %}
+								<div class="card mb-3" style="border: none;">
+									<div class="card-body">
+										<div class="terminal">
+											<div class="terminal-header">
+												<span class="button red" id="close"></span>
+												<span class="button yellow"></span>
+												<span class="button green"></span>
+												<div class="title">Ubuntu Terminal</div>
+											</div>
+											<div class="bash">
+												{% set codeBlock = codeBlocks[step.codeIndex] %}
+												{% for line in codeBlock %}
+													{% if line starts with '#' %}
+														<span id="span">
+															<span class="username">[ubuntu</span>@linux-pc]:
+															<span class="tilda-sign">~</span>
+															<span class="dollar-sign">$
+															</span>
+															{{ line|raw }}
+														</span>
+													{% else %}
+														<span id="span">
+															<span class="username">[ubuntu</span>@linux-pc]:
+															<span class="tilda-sign">~</span>
+															<span class="dollar-sign">$</span>
+															{{ line|e }}
+														</span>
+													{% endif %}
+													<br/>
+												{% endfor %}
+											</div>
+										</div>
+									</div>
+								</div>
+							{% endif %}
+
+							{# Notes #}
+							<div class="alert {{ step.noteColor }}" role="alert">
+								<h4 class="alert-heading">
+									<img src="{{ asset('img/base/' ~ step.noteImage) }}" style="width:16px; height:16px; vertical-align: middle;">
+									<span style="vertical-align: middle;">
+										{% if step.noteType == 'info' %}Info{% else %}Reminder
+										{% endif %}
+										!</span>
+								</h4>
+								{% if step.noteType == 'info' and infoNotes[step.noteIndex] is defined %}
+									<p>{{ infoNotes[step.noteIndex]|raw }}</p>
+								{% elseif step.noteType == 'remind' and remindNotes[step.noteIndex] is defined %}
+									<p>{{ remindNotes[step.noteIndex]|raw }}</p>
+								{% elseif step.noteType == 'warning' and remindNotes[step.noteIndex] is defined %}
+									<p>{{ remindNotes[step.noteIndex]|raw }}</p>
+								{% endif %}
+							</div>
+						{% endfor %}
+
+						<!-- ======= Image & Caption ======= -->
+						{% if imageFigures[1] is defined %}
+							<figure class="my-4">
+								<img src="{{ asset(imageFigures[1].src) }}" alt="" class="img-fluid">
+								{% if paragraphs[8] is defined %}
+									<figcaption>{{ paragraphs[1]|raw }}</figcaption>
+								{% endif %}
+							</figure>
+						{% endif %}
+
+						<!-- ======= 2nd Subtitle & Description ======= -->
+						{% if h2[1] is defined %}
+							<h2 class="mb-4">{{ h2[1] }}</h2>
+						{% endif %}
+						{% if paragraphs[9] is defined %}
+							<p>{{ paragraphs[9] }}</p>
+						{% endif %}
+
+						<!-- ======= 3nd Subtitle & Description ======= -->
+						{% if h2[2] is defined %}
+							<h2 class="mb-4">{{ h2[2] }}</h2>
+						{% endif %}
+						{% if paragraphs[10] is defined %}
+							<p>{{ paragraphs[10] }}</p>
+						{% endif %}
+
+						<!-- ======= Link Reference ======= -->
+						{% if linkNotes.linkText[0] is defined %}
+							{% set linkText = linkNotes.linkText[0] %}
+							{% set linkUrl = linkNotes.link %}
+							{{ linkText|replace({'Hyperledger Fabric Documentation': '<a href="' ~ linkUrl ~ '" class="link-primary">' ~ linkUrl ~ '</a>'})|raw }}
+						{% endif %}
+						{% if ulLists[2] is defined %}
+							<ul>
+								{% for li in ulLists[2] %}
+									<li>{{ li|raw }}</li>
+								{% endfor %}
+							</ul>
+						{% endif %}
+
+						<!-- Clipboard -->
+						<div class="container mt-5">
+							<div class="border p-3 bg-light">
+								<div class="d-flex justify-content-between align-items-center mb-2">
+									<span>
+										<b>Yaml Content</b>
+									</span>
+									<button id="copyButton" class="btn btn-outline-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy to clipboard">
+										<i class="bi bi-clipboard"></i>
+										Copy
+									</button>
+								</div>
+								<div id="textToCopy" class="overflow-auto" style="max-height: 400px;">
+									<pre class="mb-0"><code class="language-yaml">
+											{{ codeYaml|e('html') }}
+										</code></pre>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- End Single Post Content -->
+
+					<!-- Block Comment -->
+					{# {% block comment %}
+						{% include 'components/comment.html.twig' %}
+					{% endblock %} #}
+					<!-- End Block Comment -->
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }} 
+    {{ encore_entry_script_tags('copyButton') }}
+{% endblock %}

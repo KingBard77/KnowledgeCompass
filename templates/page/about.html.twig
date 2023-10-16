@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+    <!-- About Us -->
+	<section>
+		<div class="container" data-aos="fade-up">
+			<div class="row">
+				<div class="col-lg-12 text-center mb-5">
+					<h1 class="page-title">About us</h1>
+				</div>
+			</div>
+
+			<div
+				class="row mb-5">
+				<!-- Company History -->
+				<div class="d-md-flex post-entry-2 half">
+					<a href="#" class="me-4 thumbnail">
+						<img src="{{ asset('img/page/post-landscape-2.jpg')}}" alt="" class="img-fluid">
+					</a>
+					<div class="ps-md-5 mt-4 mt-md-0">
+						<div class="post-meta mt-4">Company History</div>
+						<h2 class="mb-4 display-4">Company History</h2>
+
+						<p>Founded in 2015, KnowledgeCompass has been a beacon of innovation and expertise in the ever-evolving landscape of technology and information. What started as a small team of passionate tech enthusiasts has now grown into a leading resource hub, offering invaluable insights across a multitude of sectors including Blockchain, Artificial Intelligence, Cybersecurity, and Renewable Energy.</p>
+						<p></p>
+					</div>
+				</div>
+
+				<!-- Mission & Vission -->
+				<div class="d-md-flex post-entry-2 half mt-5">
+					<a href="#" class="me-4 thumbnail order-2">
+						<img src="{{ asset('img/page/post-landscape-1.jpg')}}" alt="" class="img-fluid">
+					</a>
+					<div class="pe-md-5 mt-4 mt-md-0">
+						<div class="post-meta mt-4">Mission &amp; Vision</div>
+						<h2 class="mb-4 display-4">Mission &amp; Vision</h2>
+
+						<p>At KnowledgeCompass, our mission is to empower individuals and organizations by providing them with the most accurate, timely, and actionable information. We aim to be a one-stop resource hub that helps people navigate the complexities of the modern world, from technological advancements to societal changes.</p>
+						<p>Our vision is to be the world's most trusted source of knowledge and insights across a multitude of sectors. We strive to create a global community of lifelong learners who are equipped with the tools they need to make informed decisions and contribute positively to society.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+    <!-- End About Us -->
+
+	<!-- Latest News -->
+	<section class="mb-5 bg-light py-5">
+		<div class="container" data-aos="fade-up">
+			<div class="row justify-content-between align-items-lg-center">
+				<div class="col-lg-5 mb-4 mb-lg-0">
+					<h2 class="display-4 mb-4">Latest News</h2>
+					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, rem eaque vel est asperiores iste pariatur placeat molestias, rerum provident ea maiores debitis eum earum esse quas architecto! Minima, voluptatum! Minus tempora distinctio quo sint est blanditiis voluptate eos. Commodi dolore nesciunt culpa adipisci nemo expedita suscipit autem dolorum rerum?</p>
+					<p>At magni dolore ullam odio sapiente ipsam, numquam eius minus animi inventore alias quam fugit corrupti error iste laboriosam dolorum culpa doloremque eligendi repellat iusto vel impedit odit cum. Sequi atque molestias nesciunt rem eum pariatur quibusdam deleniti saepe eius maiores porro quam, praesentium ipsa deserunt laboriosam adipisci. Optio, animi!</p>
+					<p>
+						<a href="#" class="more">View All Blog Posts</a>
+					</p>
+				</div>
+				<div class="col-lg-6">
+					<div class="row">
+						<div class="col-6">
+							<img src="{{ asset('img/page/post-portrait-2.jpg')}}" alt="" class="img-fluid mb-4">
+						</div>
+						<div class="col-6 mt-4">
+							<img src="{{ asset('img/page/post-portrait-3.jpg')}}" alt="" class="img-fluid mb-4">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Latest News -->
+
+	<!-- My Profile -->
+	<section>
+		<div class="container" data-aos="fade-up">
+			<div class="row">
+				<div class="col-12 text-center mb-5">
+					<h2 class="display-4">My Profile</h2>
+				</div>
+				<div class="row">
+					<div class="col-lg-6 text-center">
+						<img src="{{ asset('img/page/person-2.jpg')}}" alt="" class="img-fluid rounded-circle w-50 mb-4">
+						<h4>Badrul Amin</h4>
+						<span class="d-block mb-3 text-uppercase">Founder &amp; KnowledgeCompass</span>
+					</div>
+					<div class="col-lg-6">
+						<p>With a passion for technology and a knack for simplifying complex topics, I founded KnowledgeCompass to empower individuals and organizations through actionable insights.</p>
+						<p>With a focus on emerging technologies like blockchain and artificial intelligence, I aim to provide a compass for navigating the ever-changing landscape of knowledge. My journey began with a simple vision: to empower individuals and organizations by offering them the tools and insights they need to succeed in a digital world.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End My Profile -->
+
+{% endblock %}
